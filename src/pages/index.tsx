@@ -17,10 +17,6 @@ interface IHomeProps {
 }
 
 export default function Home({ recommendedProducts }: IHomeProps) {
-  async function handleSum() {
-    const { sum } = (await import('../lib/math')).default;
-    alert(sum(2, 3));
-  }
   return (
     <div>
       <SEO
@@ -43,13 +39,18 @@ export default function Home({ recommendedProducts }: IHomeProps) {
                     {PrismicDOM.RichText.asText(recommendedProduct.data.title)}
                   </a>
                 </Link>
+
+                <span> Category </span>
+                <Link
+                  href={`/catalog/categories/${recommendedProduct.data.category.slug}`}
+                >
+                  <a>{recommendedProduct.data.category.slug}</a>
+                </Link>
               </li>
             );
           })}
         </ul>
       </section>
-
-      <button onClick={handleSum}>Sum</button>
     </div>
   );
 }
@@ -58,8 +59,6 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
   const recommendedProducts = await client().query([
     Prismic.Predicates.at('document.type', 'product'),
   ]);
-
-  console.log(recommendedProducts);
 
   return {
     props: {
