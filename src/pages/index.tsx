@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { Title } from '@/styles/pages/Home';
 import SEO from '@/components/SEO';
-import { client } from '@/lib/primic';
+import { client } from '@/lib/prismic';
 import Prismic from 'prismic-javascript';
 import PrismicDOM from 'prismic-dom';
 import { Document } from 'prismic-javascript/types/documents';
